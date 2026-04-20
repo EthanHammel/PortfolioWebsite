@@ -1,0 +1,66 @@
+---
+// src/components/Nav.astro
+// Sticky top navigation bar.
+// Pass `page` prop to highlight the active chip.
+export interface Props {
+  page?: string;
+  brandName?: string;
+  contactEmail?: string;
+}
+
+const {
+  page = '',
+  brandName = 'Your Name',
+  contactEmail = 'you@example.com',
+} = Astro.props;
+---
+
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="site-nav__inner">
+    <a href="/" class="site-nav__brand">{brandName}</a>
+
+    <div class="site-nav__links" id="nav-links">
+      <a href="/resume"      class={`chip chip--ghost${page === 'resume'      ? ' chip--active' : ''}`}>Résumé</a>
+      <a href="/art"         class={`chip chip--ghost${page === 'art'         ? ' chip--active' : ''}`}>Art</a>
+      <a href="/interactive" class={`chip chip--ghost${page === 'interactive' ? ' chip--active' : ''}`}>Interactive</a>
+      <a href={`mailto:${contactEmail}`} class="chip chip--filled">Contact →</a>
+    </div>
+
+    <button
+      class="site-nav__hamburger"
+      id="hamburger-btn"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div class="site-nav__mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="/resume"      class="chip chip--ghost">Résumé</a>
+    <a href="/art"         class="chip chip--ghost">Art</a>
+    <a href="/interactive" class="chip chip--ghost">Interactive</a>
+    <a href={`mailto:${contactEmail}`} class="chip chip--filled">Contact →</a>
+  </div>
+</nav>
+
+<script>
+  const btn  = document.getElementById('hamburger-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+    menu?.setAttribute('aria-hidden', String(!open));
+  });
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn?.contains(e.target as Node) && !menu?.contains(e.target as Node)) {
+      menu?.classList.remove('is-open');
+      btn?.setAttribute('aria-expanded', 'false');
+      menu?.setAttribute('aria-hidden', 'true');
+    }
+  });
+</script>

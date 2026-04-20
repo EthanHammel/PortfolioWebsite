@@ -1,0 +1,42 @@
+---
+// src/components/Marquee.astro
+// Seamlessly looping horizontal text marquee.
+// Pauses on hover. Fades edges. Playfair Display italic.
+//
+// Usage:
+//   import Marquee from '../components/Marquee.astro';
+//   <Marquee items={['Item one', 'Item two', 'Item three']} />
+//
+// items: string[] — the text entries to cycle through.
+// The array is duplicated internally for a seamless loop.
+
+export interface Props {
+  items: string[];
+  separator?: string; // default: ·
+}
+
+const { items, separator = '·' } = Astro.props;
+---
+
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-strip__track">
+    <!-- First copy -->
+    <div class="marquee-strip__content">
+      {items.map((item, i) => (
+        <>
+          <span>{item}</span>
+          <span class="marquee-strip__sep">{separator}</span>
+        </>
+      ))}
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="marquee-strip__content" aria-hidden="true">
+      {items.map((item, i) => (
+        <>
+          <span>{item}</span>
+          <span class="marquee-strip__sep">{separator}</span>
+        </>
+      ))}
+    </div>
+  </div>
+</div>

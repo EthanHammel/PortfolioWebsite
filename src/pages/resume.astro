@@ -1,0 +1,481 @@
+---
+// src/pages/resume.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/resume.css';
+import '../styles/print.css';
+---
+<BaseLayout
+  title="Résumé — Ethan Hammel"
+  description="IT operations student with experience in technical support, customer service, and software troubleshooting."
+  page="resume"
+>
+
+  <div class="resume-page">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current">Résumé</span>
+    </nav>
+
+    <div class="resume-header">
+      <h1 class="resume-header__name">Ethan S. Hammel</h1>
+      <p class="resume-header__title">College Intern — UWT IT Student</p>
+      <div class="contact-row">
+        <span class="contact-row__badge">
+          <span class="pip"></span>
+          Open to opportunities
+        </span>
+        <span class="contact-row__dot"></span>
+        <a href="mailto:ethan.s.hammel@gmail.com" class="contact-row__link">ethan.s.hammel@gmail.com</a>
+        <span class="contact-row__dot"></span>
+        <a href="tel:2534326819" class="contact-row__link">253.432.6819</a>
+        <span class="contact-row__dot"></span>
+        <span class="contact-row__link">Gig Harbor, WA</span>
+        <a href="#" class="chip chip--ghost" style="margin-left: auto;" onclick="window.print(); return false;">Print ↓</a>
+      </div>
+    </div>
+
+    <!-- ── Summary ──────────────────────────────────────────── -->
+    <section class="resume-section">
+      <div class="pull-quote">
+        <p>
+          "Results-oriented and adaptable IT operations student with experience in food service,
+          customer service, and technical support. Adept at implementing technology-based solutions
+          for business problems and establishing standards and processes that improve business functionality."
+        </p>
+        <cite>— Ethan S. Hammel</cite>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         TIPS: Add a callout box anywhere like this:
+
+         <div class="callout callout--note">
+           <span class="callout__icon">💡</span>
+           <div>
+             <span class="callout__label">Note</span>
+             <p class="callout__text">Your tip text here.</p>
+           </div>
+         </div>
+
+         Change callout--note to callout--heads-up for amber/brown tint.
+         Change the emoji to anything you like.
+    ══════════════════════════════════════════════════════ -->
+
+    <!-- ── Experience ───────────────────────────────────────── -->
+    <section class="resume-section">
+      <div class="paper-card">
+        <div class="paper-card__header">
+          <span>Experience</span>
+          <span>Most recent first</span>
+        </div>
+        <div class="paper-card__body">
+          <div class="timeline">
+
+            <div class="timeline-item">
+              <span class="timeline-item__year">Nov 2018 – Present</span>
+              <h2 class="timeline-item__role">Waiter / Barback / Busboy</h2>
+              <span class="timeline-item__company">Massimo Italian Bar and Grill · Purdy, Gig Harbor, WA</span>
+              <p class="timeline-item__desc">
+                Delivered outstanding customer service with a deep understanding of
+                <span class="kw">
+                  POS systems
+                  <span class="kw-panel">
+                    <span class="kw-panel__label">Point of Sale</span>
+                    <span class="kw-panel__body">Digital systems used to process orders and payments in restaurants. Ethan operated and helped train staff during a full system migration.</span>
+                  </span>
+                </span>
+                including easing the team's transition during a full system update.
+                Memorized the complete menu, weekly specials, and beverage offerings.
+                Prepared and served mixed drinks. Proposed operational improvements to
+                streamline seating workflow, and painted two murals in the restaurant
+                at the owner's request to enhance ambience.
+              </p>
+              <ul class="timeline-item__bullets">
+                <li>Maintained exemplary attendance and customer service ratings</li>
+                <li>Demonstrated thorough understanding of POS systems across updates</li>
+                <li>Proposed and implemented workflow optimizations for seating efficiency</li>
+                <li>Painted two murals to improve the restaurant's visual environment</li>
+              </ul>
+            </div>
+
+            <div class="timeline-item">
+              <span class="timeline-item__year">Feb 2021 – Jun 2021</span>
+              <h2 class="timeline-item__role">Home Inspection Report Writer</h2>
+              <span class="timeline-item__company">Titan Inspection Services · Maple Valley, WA</span>
+              <p class="timeline-item__desc">
+                Accurately navigated
+                <span class="kw">
+                  Spectora
+                  <span class="kw-panel">
+                    <span class="kw-panel__label">Software</span>
+                    <span class="kw-panel__body">Spectora is a leading home inspection software platform. Ethan used it to process video and audio from field inspectors and produce detailed property reports.</span>
+                  </span>
+                </span>
+                home inspection software to identify and document property issues
+                using video and audio recordings from field inspectors. Proposed
+                optimization strategies for the reporting workflow. Managed remote
+                workloads effectively and communicated efficiently with team members.
+              </p>
+              <ul class="timeline-item__bullets">
+                <li>Demonstrated excellent proficiency with Spectora inspection software</li>
+                <li>Communicated efficiently with distributed team members</li>
+                <li>Managed remote workloads effectively across a four-month contract</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Skills ───────────────────────────────────────────── -->
+    <!--
+      SKILL TOOLTIPS: Each tag uses class="tag tag--green skill-tag" (or tag--brown).
+      Add data-tip="Your tooltip text here" to any tag to give it a hover tooltip.
+      Leave data-tip off if you don't want a tooltip on a particular tag.
+      The tooltip appears above the tag on hover, bottom-sheet on mobile tap.
+    -->
+    <section class="resume-section">
+      <div class="paper-card">
+        <div class="paper-card__header">
+          <span>Skills &amp; Proficiencies</span>
+          <span>Technical + soft</span>
+        </div>
+        <div class="paper-card__body">
+          <div class="skills-grid">
+
+            <div>
+              <span class="skills-group-label">Software</span>
+              <div class="tag-cloud">
+                <span class="tag tag--green skill-tag"
+                  data-tip="Used daily for email, documents, spreadsheets, and calendar management across all roles.">
+                  Office 365
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Primary communication tool — managed scheduling, client correspondence, and team coordination.">
+                  Outlook
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Used for remote team meetings and coordination during the Titan Inspection role.">
+                  Zoom
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Restaurant management and ordering system used at Massimo. Handled order entry, table management, and end-of-shift reporting.">
+                  Dinerware
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Used to run virtual machines for IT coursework — tested operating systems and isolated environments without dedicated hardware.">
+                  VirtualBox
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Home inspection reporting platform. Processed inspector audio/video to produce detailed property condition reports remotely.">
+                  Spectora
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <span class="skills-group-label">Networking</span>
+              <div class="tag-cloud">
+                <span class="tag tag--green skill-tag"
+                  data-tip="Local Area Network — understand topology, device communication, and basic troubleshooting for wired and wireless networks.">
+                  LAN
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Dynamic Host Configuration Protocol — familiar with IP address assignment, lease management, and scope configuration.">
+                  DHCP
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Virtual Private Network — understand tunneling concepts, secure remote access, and client configuration.">
+                  VPN
+                </span>
+                <span class="tag tag--green skill-tag"
+                  data-tip="Domain Name System — can configure, troubleshoot, and explain how DNS resolves names to IP addresses.">
+                  DNS
+                </span>
+                <span class="tag skill-tag"
+                  data-tip="Broad understanding of how networked systems communicate, including switches, routers, and basic network architecture.">
+                  Network Systems
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <span class="skills-group-label">Platforms &amp; browsers</span>
+              <div class="tag-cloud">
+                <span class="tag skill-tag"
+                  data-tip="Primary OS in IT coursework and lab environments. Familiar with enterprise features, Group Policy, and system administration.">
+                  Windows 11 Enterprise
+                </span>
+                <span class="tag skill-tag"
+                  data-tip="Familiar with the Chrome OS environment and its web-first application model.">
+                  Chrome OS
+                </span>
+                <span class="tag skill-tag"
+                  data-tip="Daily driver. Proficient with DevTools, extensions, and performance troubleshooting.">
+                  Google Chrome
+                </span>
+                <span class="tag skill-tag"
+                  data-tip="Comfortable in Edge for compatibility testing and enterprise environments that rely on it.">
+                  Microsoft Edge
+                </span>
+                <span class="tag skill-tag"
+                  data-tip="Used for cross-browser compatibility checks and privacy-focused browsing.">
+                  Mozilla Firefox
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <span class="skills-group-label">Areas of expertise</span>
+              <div class="tag-cloud">
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Diagnosed and resolved hardware, software, and network issues in both IT coursework and real restaurant environments.">
+                  Technical support
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Six-plus years of direct customer-facing experience in a high-volume restaurant. Consistent positive feedback.">
+                  Customer service
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Methodical approach to identifying root causes — whether a malfunctioning POS, a network issue, or a workflow bottleneck.">
+                  Problem diagnosis
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Proposed and implemented workflow improvements at both Massimo (seating process) and Titan (reporting efficiency).">
+                  Systems optimization
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Operated Dinerware POS at Massimo and led the team through a full system migration to a new platform.">
+                  POS systems
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Handled difficult customer situations calmly and professionally, consistently maintaining high satisfaction ratings.">
+                  Complaint handling
+                </span>
+                <span class="tag tag--brown skill-tag"
+                  data-tip="Helped promote specials and new menu items to guests, contributing to upsell goals and overall revenue.">
+                  Marketing
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Education ─────────────────────────────────────────── -->
+    <section class="resume-section">
+      <div class="paper-card">
+        <div class="paper-card__header">
+          <span>Education &amp; Credentials</span>
+        </div>
+        <div class="paper-card__body">
+          <div class="timeline">
+
+            <div class="timeline-item timeline-item--edu">
+              <span class="timeline-item__year">In progress</span>
+              <h3 class="timeline-item__role">Associate in Computer Science</h3>
+              <span class="timeline-item__company">Tacoma Community College · Tacoma, WA</span>
+            </div>
+
+            <div class="timeline-item timeline-item--edu">
+              <span class="timeline-item__year">Completed</span>
+              <h3 class="timeline-item__role">High School Diploma</h3>
+              <span class="timeline-item__company">Peninsula High School · Gig Harbor, WA</span>
+            </div>
+
+            <div class="timeline-item timeline-item--edu">
+              <span class="timeline-item__year">Certified</span>
+              <h3 class="timeline-item__role">Food Handler Certificate</h3>
+              <span class="timeline-item__company">State of Washington</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="callout callout--note">
+      <span class="callout__icon">📎</span>
+      <div>
+        <span class="callout__label">Note</span>
+        <p class="callout__text">References available on request.</p>
+      </div>
+    </div>
+
+  </div>
+
+</BaseLayout>
+
+<style>
+/* ── Bullet list in timeline ────────────────────────────────── */
+.timeline-item__bullets {
+  margin-top: 10px;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.timeline-item__bullets li {
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+/* ── Skill tag tooltips ─────────────────────────────────────── */
+.skill-tag {
+  position: relative;
+  cursor: help;
+}
+
+/* The tooltip bubble — hidden by default */
+.skill-tag::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  background: #faf7f2;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-warm);
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-mid);
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms ease;
+  z-index: 300;
+  /* Triangle pointer */
+  --tri: var(--border-dark);
+}
+
+/* Triangle below bubble */
+.skill-tag::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border-dark);
+  opacity: 0;
+  transition: opacity 140ms ease;
+  pointer-events: none;
+  z-index: 301;
+}
+
+/* Only show tooltip if data-tip exists and is non-empty */
+.skill-tag[data-tip]:not([data-tip=""]):hover::after,
+.skill-tag[data-tip]:not([data-tip=""]):hover::before {
+  opacity: 1;
+}
+
+/* Flip tooltip downward if near top of viewport */
+.skill-tag.tip-below::after {
+  top: calc(100% + 8px);
+  bottom: auto;
+}
+.skill-tag.tip-below::before {
+  top: calc(100% + 2px);
+  bottom: auto;
+  border-top-color: transparent;
+  border-bottom-color: var(--border-dark);
+}
+
+/* Mobile: fixed bottom sheet instead of bubble */
+@media (max-width: 639px) {
+  .skill-tag::after,
+  .skill-tag::before { display: none; }
+
+  .skill-tag.tip-open .skill-tip-sheet {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile bottom sheet element (injected by JS) */
+.skill-tip-sheet {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .skill-tip-sheet {
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    left: 16px;
+    right: 16px;
+    background: #faf7f2;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-warm);
+    padding: 14px 16px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.55;
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+}
+</style>
+
+<script>
+// ── Skill tag: viewport-edge flip + mobile bottom sheet ────────
+(function () {
+  // Desktop: flip tooltip below if tag is near top of viewport
+  function checkFlip() {
+    document.querySelectorAll('.skill-tag[data-tip]').forEach(tag => {
+      const rect = tag.getBoundingClientRect();
+      tag.classList.toggle('tip-below', rect.top < 160);
+    });
+  }
+  checkFlip();
+  window.addEventListener('scroll', checkFlip, { passive: true });
+  window.addEventListener('resize', checkFlip, { passive: true });
+
+  // Mobile: tap to show/hide a bottom sheet with the tip text
+  if (window.innerWidth < 640) {
+    // Create one shared bottom sheet element
+    const sheet = document.createElement('div');
+    sheet.className = 'skill-tip-sheet';
+    document.body.appendChild(sheet);
+
+    let openTag = null;
+
+    document.querySelectorAll('.skill-tag[data-tip]').forEach(tag => {
+      tag.addEventListener('click', e => {
+        e.stopPropagation();
+        if (openTag === tag) {
+          // Close
+          sheet.style.opacity = '0';
+          sheet.style.pointerEvents = 'none';
+          openTag = null;
+        } else {
+          sheet.textContent = tag.dataset.tip;
+          sheet.style.opacity = '1';
+          sheet.style.pointerEvents = 'auto';
+          openTag = tag;
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      sheet.style.opacity = '0';
+      sheet.style.pointerEvents = 'none';
+      openTag = null;
+    });
+  }
+})();
+</script>

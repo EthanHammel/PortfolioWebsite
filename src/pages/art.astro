@@ -1,0 +1,72 @@
+---
+// src/pages/art.astro
+// Auto-detects all images in /public/art/ at build time.
+// Drop a file in → rebuild → it appears. No code changes needed.
+// Supported: .png .gif .jpg .jpeg .webp
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArtGallery  from '../components/ArtGallery.astro';
+import '../styles/art.css';
+
+// Glob all image files from /public/art/
+const imageFiles = import.meta.glob(
+  '/public/art/*.{png,gif,jpg,jpeg,webp}',
+  { eager: true }
+);
+
+// Build typed gallery items
+const galleryItems = Object.entries(imageFiles)
+  .map(([path, _mod]) => {
+    const filename = path.split('/').pop() ?? path;
+    const ext      = filename.split('.').pop()?.toLowerCase() ?? '';
+    return {
+      src:      path.replace('/public', ''),
+      filename,
+      ext,
+      isGif: ext === 'gif',
+      path,
+    };
+  })
+  .sort((a, b) => a.filename.localeCompare(b.filename));
+---
+
+<BaseLayout
+  title="Art — Ethan Hammel"
+  description="A gallery of personal artwork, images, and visual experiments."
+  page="art"
+>
+
+  <div class="art-page">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current">Art &amp; Images</span>
+    </nav>
+
+    <h1>Art &amp; Images</h1>
+
+    <p class="art-lede">
+      Personal work — drawings, photographs, experiments, and whatever else
+      has felt worth making. Updated as things accumulate.
+    </p>
+
+    <ArtGallery items={galleryItems} />
+	<!--		
+    <div class="callout callout--note" style="margin-top: 48px;">
+      <span class="callout__icon">ℹ️</span>
+      <div>
+        <span class="callout__label">Adding images</span>
+        <p class="callout__text">
+          Place any <strong>.png</strong>, <strong>.jpg</strong>,
+          <strong>.gif</strong>, or <strong>.webp</strong> file into
+          <code>/public/art/</code> and run <code>npm run build</code>.
+          Files are sorted alphabetically — prefix with numbers to control order
+          (e.g. <code>01-first.png</code>, <code>02-second.jpg</code>).
+        </p>
+      </div>
+    </div>
+	-->
+  </div>
+
+</BaseLayout>
