@@ -1,0 +1,16 @@
+---
+// src/components/PaperAirplane.astro
+// Spritesheet bird cursor. Div-based, no canvas.
+// Hidden on mobile < 640px via JS in bird.js.
+---
+
+<script src="/scripts/bird.js" defer></script>
+
+<style is:global>
+  /* Hide system cursor on desktop so only bird shows */
+  @media (min-width: 640px) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+// src/components/KeywordTooltip.astro
+// Renders an inline keyword with hover tooltip (desktop) / tap bottom-sheet (mobile).
+//
+// Usage:
+//   import KeywordTooltip from '../components/KeywordTooltip.astro';
+//   <KeywordTooltip word="agile" label="methodology" text="An iterative project management approach..." />
+//
+// Or use the raw HTML pattern directly (no import needed):
+//   <span class="kw">
+//     your term
+//     <span class="kw-panel">
+//       <span class="kw-panel__label">label</span>
+//       <span class="kw-panel__body">Explanation here.</span>
+//     </span>
+//   </span>
+
+export interface Props {
+  word: string;         // the visible underlined word
+  label?: string;       // small DM Mono label above the explanation (optional)
+  text: string;         // the tooltip explanation
+}
+
+const { word, label = 'note', text } = Astro.props;
+---
+
+<span class="kw">
+  {word}
+  <span class="kw-panel">
+    <span class="kw-panel__label">{label}</span>
+    <span class="kw-panel__body">{text}</span>
+  </span>
+</span>

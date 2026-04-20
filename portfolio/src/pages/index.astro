@@ -1,0 +1,139 @@
+---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Marquee    from '../components/Marquee.astro';
+import '../styles/home.css';
+
+// ── Edit marquee items here ───────────────────────────────────
+const marqueeItems = [
+  'IT operations student',
+  'Technical support',
+  'Customer service',
+  'Systems optimization',
+  'Network & software troubleshooting',
+  'Creative problem solver',
+  'UWT · Tacoma Community College',
+];
+// ─────────────────────────────────────────────────────────────
+---
+
+<BaseLayout
+  title="Your Name — Portfolio"
+  description="Designer, developer, creative. Portfolio and résumé."
+  page="home"
+>
+
+  <!-- ── Page Header ──────────────────────────────────────── -->
+  <header class="home-header">
+    <div class="home-header__main">
+      <div class="home-header__tagline">
+        <span class="pip"></span>
+        <span>Open to opportunities · Gig Harbor, WA</span>
+      </div>
+      <h1 class="home-header__name">Ethan S. Hammel</h1>
+      <p class="home-header__subtitle">IT Student &amp; Technical Support Specialist</p>
+    </div>
+    <div class="home-header__date">
+      <span id="live-date"></span>
+      <span>Portfolio v1</span>
+    </div>
+  </header>
+
+  <!-- ── Marquee ───────────────────────────────────────────── -->
+  <Marquee items={marqueeItems} />
+
+  <!-- ── Lede paragraph ────────────────────────────────────── -->
+  <section class="home-lede">
+    <p>
+      Welcome to my portfolio website! I am an artist looking to find a foothold in the tech industry. I love to optimize systems and see the fruit of my work in a tangible fashion. I can only hope that all the work I do contributes to my community or makes someone smile. 
+    </p>
+  </section>
+
+  <!-- ── Navigation Cards ──────────────────────────────────── -->
+  <section class="nav-cards-section">
+    <div class="nav-cards-grid">
+
+      <a href="/resume" class="nav-card">
+        <div class="nav-card__face">
+          <span class="nav-card__number">01</span>
+          <span class="nav-card__icon">📄</span>
+          <h2 class="nav-card__title">Résumé</h2>
+          <p class="nav-card__desc">
+            Work history, skills, and education. A full accounting of where I've
+            been and what I've learned along the way.
+          </p>
+        </div>
+        <div class="nav-card__cta">
+          <span class="nav-card__cta-text">View résumé</span>
+          <span class="nav-card__cta-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/art" class="nav-card">
+        <div class="nav-card__face">
+          <span class="nav-card__number">02</span>
+          <span class="nav-card__icon">🎨</span>
+          <h2 class="nav-card__title">Art &amp; Images</h2>
+          <p class="nav-card__desc">
+            A gallery of personal work — drawings, photographs, experiments,
+            stuff i've made.
+          </p>
+        </div>
+        <div class="nav-card__cta">
+          <span class="nav-card__cta-text">Browse gallery</span>
+          <span class="nav-card__cta-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="/interactive" class="nav-card">
+        <div class="nav-card__face">
+          <span class="nav-card__number">03</span>
+          <span class="nav-card__icon">⚙️</span>
+          <h2 class="nav-card__title">Interactive</h2>
+          <p class="nav-card__desc">
+            Built things, experiments, and projects that do something.
+            Tools, toys, and prototypes.
+          </p>
+        </div>
+        <div class="nav-card__cta">
+          <span class="nav-card__cta-text">See projects</span>
+          <span class="nav-card__cta-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── Contact Row ────────────────────────────────────────── -->
+  <div class="home-contact">
+    <div class="contact-row">
+      <span class="contact-row__badge">
+        <span class="pip"></span>
+        Available for opportunities
+      </span>
+      <span class="contact-row__dot"></span>
+      <a href="mailto:ethan.s.hammel@gmail.com" class="contact-row__link">ethan.s.hammel@gmail.com</a>
+      <span class="contact-row__dot"></span>
+      <a href="tel:2534326819" class="contact-row__link">253.432.6819</a>
+      <span class="contact-row__dot"></span>
+      <a href="https://linkedin.com/in/ethanhammel" class="contact-row__link"
+         target="_blank" rel="noopener">LinkedIn</a>
+      <span class="contact-row__dot"></span>
+      <a href="https://github.com/ethanhammel" class="contact-row__link"
+         target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:ethan.s.hammel@gmail.com" class="chip chip--filled"
+         style="margin-left: auto;">Get in touch →</a>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<script>
+  const el = document.getElementById('live-date');
+  if (el) {
+    el.textContent = new Date().toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric',
+    });
+  }
+</script>

@@ -1,0 +1,66 @@
+---
+// src/pages/interactive.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/interactive.css';
+---
+<BaseLayout
+  title="Interactive — Your Name"
+  description="Interactive projects, built experiments, and prototypes."
+  page="interactive"
+>
+
+  <div class="interactive-page">
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb__sep">›</span>
+      <span class="breadcrumb__current">Interactive</span>
+    </nav>
+
+    <h1>Interactive Projects</h1>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PLACEHOLDER SECTION
+         Replace everything between these comments with your
+         actual project content when you're ready.
+         The .project-grid and .project-card styles are ready
+         in src/styles/interactive.css — just add your cards.
+    ═══════════════════════════════════════════════════════ -->
+    <div class="interactive-placeholder">
+      <p class="interactive-placeholder__title">Nothing here yet.</p>
+      <p class="interactive-placeholder__note">
+        This section is reserved for interactive projects — built things,
+        experiments, prototypes, and tools. Come back soon.
+      </p>
+      <a href="/" class="chip chip--ghost">← Back home</a>
+    </div>
+    <!-- ═══════════════════════════════════════════════════════
+         END PLACEHOLDER — replace above with project content
+    ═══════════════════════════════════════════════════════ -->
+
+    <!--
+    EXAMPLE: When you're ready to add projects, replace the placeholder
+    above with something like this:
+
+    <p style="font-family: var(--font-display); font-style: italic; color: var(--text-mid); margin-bottom: 32px;">
+      Built things, experiments, and tools.
+    </p>
+
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-card__thumb">
+          <img src="/art/project-thumb.png" alt="Project name" />
+        </div>
+        <div class="project-card__body">
+          <h2 class="project-card__title">Project Name</h2>
+          <p class="project-card__desc">Brief description of what this does and how you made it.</p>
+          <a href="https://your-project-url.com" class="chip chip--filled" target="_blank">Open project →</a>
+        </div>
+      </div>
+    </div>
+    -->
+
+  </div>
+
+</BaseLayout>

@@ -1,0 +1,104 @@
+/* src/styles/art.css */
+
+.art-page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.art-lede {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--text-mid);
+  line-height: 1.65;
+  margin-bottom: 40px;
+  max-width: 580px;
+}
+
+/* ── Gallery Row ───────────────────────────────────────────── */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.gallery-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius);
+  cursor: default;
+  background: var(--paper-dark);
+  transition: box-shadow var(--transition);
+}
+
+.gallery-item:hover {
+  box-shadow: var(--shadow-lift);
+}
+
+.gallery-item img,
+.gallery-item video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  transition: filter 200ms ease;
+}
+
+/* Hover metadata overlay */
+.gallery-item__meta {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 40px 18px 16px;
+  background: linear-gradient(to top, rgba(58,46,30,0.7), transparent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.gallery-item:hover .gallery-item__meta {
+  opacity: 1;
+}
+
+.gallery-item__filename {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(245,240,232,0.9);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.gallery-item__dims {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(245,240,232,0.6);
+}
+
+/* Mobile: tap-toggle for metadata */
+@media (max-width: 639px) {
+  .gallery-item { width: 100%; }
+  .gallery-item__meta { opacity: 0; }
+  .gallery-item.meta-open .gallery-item__meta { opacity: 1; }
+}
+
+/* ── Empty state ───────────────────────────────────────────── */
+.gallery-empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-light);
+}
+
+.gallery-empty p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: var(--text-mid);
+}
+
+.gallery-empty small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-light);
+}

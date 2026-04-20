@@ -1,0 +1,178 @@
+/* src/styles/print.css
+   Imported only by resume.astro via: import '../styles/print.css';
+   Activated automatically when the user clicks Print or uses Ctrl+P.      */
+
+@media print {
+
+  /* ── Hide chrome ──────────────────────────────────────────── */
+  .site-nav,
+  .marquee-strip,
+  #plane-canvas,
+  canvas,
+  .site-footer,
+  .breadcrumb,
+  .callout,
+  .chip--ghost[onclick],        /* Print button itself */
+  .contact-row .chip--filled {
+    display: none !important;
+  }
+
+  /* ── Page setup ───────────────────────────────────────────── */
+  @page {
+    margin: 18mm 20mm;
+    size: A4 portrait;
+  }
+
+  html, body {
+    background: white !important;
+    color: #1a1a1a !important;
+    font-size: 11pt;
+  }
+
+  /* Remove paper textures */
+  body::before,
+  body::after { display: none !important; }
+
+  /* ── Typography override ──────────────────────────────────── */
+  h1, h2, h3, h4 {
+    color: #1a1a1a !important;
+    page-break-after: avoid;
+  }
+
+  p, li { orphans: 3; widows: 3; }
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  .resume-page {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* ── Resume header ────────────────────────────────────────── */
+  .resume-header {
+    margin-bottom: 20pt;
+    padding-bottom: 10pt;
+    border-bottom: 1pt solid #999;
+  }
+
+  .resume-header__name {
+    font-size: 26pt !important;
+    color: #1a1a1a !important;
+  }
+
+  .resume-header__title {
+    font-size: 13pt !important;
+    color: #444 !important;
+  }
+
+  /* ── Contact row (print version) ─────────────────────────── */
+  .contact-row {
+    gap: 6pt;
+    font-size: 9pt;
+    flex-wrap: wrap;
+  }
+
+  .contact-row__badge {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 9pt;
+    color: #444 !important;
+  }
+
+  .pip { display: none; }
+
+  /* ── Paper card ───────────────────────────────────────────── */
+  .paper-card {
+    box-shadow: none !important;
+    border: 1pt solid #ccc !important;
+    page-break-inside: avoid;
+    margin-bottom: 14pt;
+  }
+
+  .paper-card__header {
+    background: #f0f0f0 !important;
+    padding: 6pt 12pt;
+    font-size: 8pt;
+    color: #666 !important;
+  }
+
+  .paper-card__body { padding: 14pt 16pt; }
+
+  /* ── Timeline ─────────────────────────────────────────────── */
+  .timeline::before { background: #bbb; }
+
+  .timeline-item {
+    page-break-inside: avoid;
+    margin-bottom: 14pt;
+  }
+
+  .timeline-item::before {
+    border-color: #666 !important;
+    background: white !important;
+  }
+
+  .timeline-item__year { color: #555 !important; }
+
+  .timeline-item__role {
+    font-size: 13pt !important;
+    color: #1a1a1a !important;
+  }
+
+  .timeline-item__company { color: #555 !important; }
+
+  .timeline-item__desc {
+    font-size: 10pt !important;
+    color: #333 !important;
+    max-width: 100%;
+  }
+
+  /* ── Tags ─────────────────────────────────────────────────── */
+  .tag {
+    border-color: #bbb !important;
+    color: #333 !important;
+    background: none !important;
+    font-size: 8.5pt;
+    padding: 2pt 7pt;
+  }
+
+  .tag--green {
+    border-color: #888 !important;
+    color: #222 !important;
+    background: none !important;
+  }
+
+  .tag--brown { border-color: #999 !important; color: #222 !important; }
+
+  /* ── Keyword tooltips ─────────────────────────────────────── */
+  .kw { border-bottom: none !important; }
+  .kw-panel { display: none !important; }
+
+  /* ── Pull quote ───────────────────────────────────────────── */
+  .pull-quote {
+    border-left: 3pt solid #999 !important;
+    background: none !important;
+    page-break-inside: avoid;
+  }
+
+  .pull-quote p { color: #333 !important; }
+  .pull-quote cite { color: #777 !important; }
+
+  /* ── Ensure links show their URL on print ─────────────────── */
+  a[href^="http"]::after {
+    content: ' (' attr(href) ')';
+    font-size: 7.5pt;
+    color: #666;
+  }
+
+  a[href^="mailto"]::after {
+    content: none; /* email already visible in contact row */
+  }
+
+  /* ── Skills grid ──────────────────────────────────────────── */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12pt;
+  }
+
+  .skills-group-label { color: #666 !important; font-size: 8pt; }
+}
