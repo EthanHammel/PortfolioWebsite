@@ -1,4 +1,4 @@
 {
 "title":"Ascii Editor Application",
-"description":"I wanted to have an ascii art tool that did exactly what I wanted to make animations similair to emoticons but with a little bit more life. you can export the results as a gif or a png sprite sheet and can change the font, rotation, translation. The app was made using claude and utilizing optimization strategies to manage all of the various moving parts. It is still in a state of development but i am eventually planning a public version."
+"description":"\tI wanted to have an ascii art tool that did exactly what I wanted to make animations similair to emoticons but with a little bit more life. you can export the results as a gif or a png sprite sheet and can change the font, rotation, translation. The app was made using claude and utilizing optimization strategies to manage all of the various moving parts. It is still in a state of development but i am eventually planning a public version."
 }
