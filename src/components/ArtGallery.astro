@@ -1,88 +1,65 @@
 ---
 // src/components/ArtGallery.astro
-// Single-image slideshow with dot/progress indicators and prev/next arrows.
-// Only ONE image is in the DOM at a time — GIFs don't pile up and lag.
-// Images are loaded on demand when navigating; previous src is cleared first.
+// Single-image slideshow. Accepts galleryId so multiple galleries
+// on the same page (one per project folder) don't conflict.
 
 export interface GalleryItem {
-  src:      string;
-  filename: string;
-  ext:      string;
-  isGif:    boolean;
-  path:     string;
+  src: string; filename: string; ext: string; isGif: boolean; path: string;
 }
-
 export interface Props {
-  items: GalleryItem[];
+  items:     GalleryItem[];
+  galleryId?: string;   // unique id prefix, default "gallery-0"
 }
 
-const { items } = Astro.props;
-const count = items.length;
-// Serialize item data for the client script
+const { items, galleryId = 'gallery-0' } = Astro.props;
+const count    = items.length;
 const itemsJson = JSON.stringify(items.map(i => ({
-  src:      i.src,
-  filename: i.filename,
-  ext:      i.ext,
-  isGif:    i.isGif,
+  src: i.src, filename: i.filename, ext: i.ext, isGif: i.isGif,
 })));
-// Use dots for ≤ 20 items, progress bar for more
 const useDots = count <= 20;
+const id = galleryId; // short alias
 ---
 
 {count > 0 ? (
-  <div class="slideshow" id="slideshow" aria-label="Art gallery">
+  <div class="slideshow" aria-label="Gallery">
 
-    <!-- Image stage -->
-    <div class="slideshow__stage" id="ss-stage">
+    <div class="slideshow__stage" data-stage>
 
-      <!-- Prev arrow -->
-      <button class="slideshow__arrow slideshow__arrow--prev"
-              id="ss-prev" aria-label="Previous image">‹</button>
+      <button class="slideshow__arrow slideshow__arrow--prev" data-prev aria-label="Previous">‹</button>
 
-      <!-- Single image — src swapped by JS -->
       <img
         class="slideshow__img"
-        id="ss-img"
+        data-img
         src={items[0].src}
         alt={items[0].filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ')}
         decoding="async"
       />
 
-      <!-- Loading indicator -->
-      <div class="slideshow__loader" id="ss-loader" aria-hidden="true">
+      <div class="slideshow__loader" data-loader aria-hidden="true">
         <span class="slideshow__loader-dot"></span>
         <span class="slideshow__loader-dot"></span>
         <span class="slideshow__loader-dot"></span>
       </div>
 
-      <!-- Metadata overlay -->
-      <div class="slideshow__meta" id="ss-meta">
-        <span class="slideshow__filename" id="ss-filename">{items[0].filename}</span>
-        <span class="slideshow__ext" id="ss-ext">
+      <div class="slideshow__meta">
+        <span class="slideshow__filename" data-filename>{items[0].filename}</span>
+        <span class="slideshow__ext" data-ext>
           {items[0].ext.toUpperCase()}{items[0].isGif ? ' · animated' : ''}
         </span>
       </div>
 
-      <!-- Next arrow -->
-      <button class="slideshow__arrow slideshow__arrow--next"
-              id="ss-next" aria-label="Next image">›</button>
+      <button class="slideshow__arrow slideshow__arrow--next" data-next aria-label="Next">›</button>
     </div>
 
-    <!-- Bottom bar -->
     <div class="slideshow__bar">
+      <span class="slideshow__counter" data-counter>1 / {count}</span>
 
-      <!-- Counter e.g. "3 / 12" -->
-      <span class="slideshow__counter" id="ss-counter">
-        1 / {count}
-      </span>
-
-      <!-- Dot indicators (≤ 20 images) or progress bar (> 20) -->
       {useDots ? (
-        <div class="slideshow__dots" id="ss-dots" role="tablist" aria-label="Go to image">
+        <div class="slideshow__dots" role="tablist">
           {items.map((_, i) => (
             <button
               class={`slideshow__dot${i === 0 ? ' is-active' : ''}`}
-              data-idx={i}
+              data-dot={i}
               role="tab"
               aria-label={`Image ${i + 1}`}
               aria-selected={i === 0 ? 'true' : 'false'}
@@ -90,13 +67,12 @@ const useDots = count <= 20;
           ))}
         </div>
       ) : (
-        <div class="slideshow__progress" aria-hidden="true">
-          <div class="slideshow__progress-fill" id="ss-progress"
-               style={`width: ${(1/count*100).toFixed(2)}%`}></div>
+        <div class="slideshow__progress">
+          <div class="slideshow__progress-fill" data-progress
+               style={`width:${(1/count*100).toFixed(2)}%`}></div>
         </div>
       )}
 
-      <!-- Keyboard hint -->
       <span class="slideshow__hint" aria-hidden="true">← → keys</span>
     </div>
 
@@ -104,73 +80,102 @@ const useDots = count <= 20;
 ) : (
   <div class="gallery-empty">
     <p>Nothing here yet.</p>
-    <small>
-      Drop image files into <code>/public/art/</code> and rebuild —
-      they'll appear here automatically.<br />
-      Supported: PNG · JPG · GIF · WEBP
-    </small>
+    <small>Drop images into <code>/public/art/</code> and rebuild.</small>
   </div>
 )}
 
 <script define:vars={{ itemsJson, count, useDots }}>
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  // Find the closest slideshow ancestor of this script's sibling elements.
+  // Because Astro hoists scripts, we find the LAST un-initialized slideshow.
+  const allSlideshows = document.querySelectorAll('.slideshow:not([data-init])');
+  const root = allSlideshows[allSlideshows.length - 1];
+  if (!root) return;
+  root.setAttribute('data-init', '1');
 
   const items   = JSON.parse(itemsJson);
   if (!items.length) return;
 
-  const img      = document.getElementById('ss-img');
-  const loader   = document.getElementById('ss-loader');
-  const filename = document.getElementById('ss-filename');
-  const ext      = document.getElementById('ss-ext');
-  const counter  = document.getElementById('ss-counter');
-  const prev     = document.getElementById('ss-prev');
-  const next     = document.getElementById('ss-next');
-  const stage    = document.getElementById('ss-stage');
+  const img      = root.querySelector('[data-img]');
+  const loader   = root.querySelector('[data-loader]');
+  const fname    = root.querySelector('[data-filename]');
+  const ext      = root.querySelector('[data-ext]');
+  const counter  = root.querySelector('[data-counter]');
+  const prev     = root.querySelector('[data-prev]');
+  const next     = root.querySelector('[data-next]');
+  const stage    = root.querySelector('[data-stage]');
+  const dots     = useDots ? Array.from(root.querySelectorAll('[data-dot]')) : null;
+  const progress = !useDots ? root.querySelector('[data-progress]') : null;
 
   let current = 0;
   let loading = false;
 
   function goTo(idx) {
     if (loading) return;
-
     if (idx < 0) idx = count - 1;
     if (idx >= count) idx = 0;
 
     const item = items[idx];
     loading = true;
-
     img.classList.add('is-loading');
     loader.classList.add('is-visible');
 
-    const newImg = new Image();
+    // Clear GIF before loading next (stops decode, frees memory)
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
-    newImg.onload = () => {
-      img.src = newImg.src;
+    setTimeout(() => {
+      const tmp = new Image();
+      tmp.onload = () => {
+        img.src = tmp.src;
+        img.alt = item.filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+        img.classList.remove('is-loading');
+        loader.classList.remove('is-visible');
+        fname.textContent = item.filename;
+        ext.textContent   = item.ext.toUpperCase() + (item.isGif ? ' · animated' : '');
+        counter.textContent = `${idx + 1} / ${count}`;
 
-      filename.textContent = item.filename;
-      ext.textContent = item.ext.toUpperCase() + (item.isGif ? ' · animated' : '');
-      counter.textContent = `${idx + 1} / ${count}`;
+        if (dots) {
+          dots[current]?.classList.remove('is-active');
+          dots[current]?.setAttribute('aria-selected', 'false');
+          dots[idx]?.classList.add('is-active');
+          dots[idx]?.setAttribute('aria-selected', 'true');
+        }
+        if (progress) progress.style.width = `${((idx+1)/count*100).toFixed(2)}%`;
 
-      img.classList.remove('is-loading');
-      loader.classList.remove('is-visible');
-
-      current = idx;
-      loading = false;
-    };
-
-    newImg.src = item.src;
+        current = idx;
+        loading = false;
+      };
+      tmp.onerror = () => { img.classList.remove('is-loading'); loader.classList.remove('is-visible'); loading = false; };
+      tmp.src = item.src;
+    }, 40);
   }
 
-  // 🔥 THESE ARE THE IMPORTANT PARTS
-  prev?.addEventListener('click', () => {
-    console.log('prev clicked');
-    goTo(current - 1);
+  prev?.addEventListener('click', () => goTo(current - 1));
+  next?.addEventListener('click', () => goTo(current + 1));
+  dots?.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+  // Keyboard: only respond when this slideshow is in view
+  document.addEventListener('keydown', e => {
+    const r = root.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
-  next?.addEventListener('click', () => {
-    console.log('next clicked');
-    goTo(current + 1);
-  });
+  // Touch swipe
+  let tx = 0;
+  stage?.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  stage?.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  }, { passive: true });
 
-});
+  // Mobile meta overlay on tap
+  stage?.addEventListener('click', e => {
+    if (window.innerWidth < 640 && !(e.target).closest('.slideshow__arrow')) {
+      stage.classList.toggle('meta-open');
+    }
+  });
+})();
 </script>

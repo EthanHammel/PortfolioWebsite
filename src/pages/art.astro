@@ -1,33 +1,87 @@
 ---
 // src/pages/art.astro
-// Auto-detects all images in /public/art/ at build time.
-// Drop a file in → rebuild → it appears. No code changes needed.
-// Supported: .png .gif .jpg .jpeg .webp
+//
+// HOW FOLDERS WORK
+// ─────────────────
+// Images directly in /public/art/        → one unnamed gallery (no header)
+// Images in /public/art/my-project/      → separate named project gallery
+//
+// ADDING A TITLE AND DESCRIPTION TO A FOLDER
+// ────────────────────────────────────────────
+// Create a file called info.json inside the subfolder:
+//   /public/art/my-project/info.json
+//
+// Contents (both fields optional):
+//   {
+//     "title": "My Project Name",
+//     "description": "Context about this project, what the images show, etc."
+//   }
+//
+// If info.json is missing, the folder name is used as the title.
+// "my-project" → "My Project" (hyphens/underscores become spaces, title-cased).
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArtGallery  from '../components/ArtGallery.astro';
 import '../styles/art.css';
 
-// Glob all image files from /public/art/
-const imageFiles = import.meta.glob(
-  '/public/art/*.{png,gif,jpg,jpeg,webp}',
+// Glob all images and all info.json files
+const allImages = import.meta.glob(
+  '/public/art/**/*.{png,gif,jpg,jpeg,webp}',
+  { eager: true }
+);
+const allInfos = import.meta.glob(
+  '/public/art/**/info.json',
   { eager: true }
 );
 
-// Build typed gallery items
-const galleryItems = Object.entries(imageFiles)
-  .map(([path, _mod]) => {
-    const filename = path.split('/').pop() ?? path;
-    const ext      = filename.split('.').pop()?.toLowerCase() ?? '';
-    return {
-      src:      path.replace('/public', ''),
-      filename,
-      ext,
-      isGif: ext === 'gif',
-      path,
-    };
-  })
-  .sort((a, b) => a.filename.localeCompare(b.filename));
+function folderToTitle(name) {
+  return name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// Build project groups
+const ROOT = '__root__';
+const map = new Map();
+
+for (const path of Object.keys(allImages)) {
+  const rel   = path.replace('/public/art/', '');
+  const parts = rel.split('/');
+  const key   = parts.length === 1 ? ROOT : parts[0];
+  const file  = parts[parts.length - 1];
+  const ext   = file.split('.').pop()?.toLowerCase() ?? '';
+
+  if (!map.has(key)) {
+    const infoMod = key === ROOT ? null : allInfos[`/public/art/${key}/info.json`];
+    map.set(key, {
+      key,
+      title:       infoMod?.title       ?? (key === ROOT ? '' : folderToTitle(key)),
+      description: infoMod?.description ?? '',
+      items: [],
+    });
+  }
+
+  map.get(key).items.push({
+    src:    path.replace('/public', ''),
+    filename: file,
+    ext,
+    isGif: ext === 'gif',
+    path,
+  });
+}
+
+// Sort items within each group
+for (const g of map.values()) {
+  g.items.sort((a, b) => a.filename.localeCompare(b.filename));
+}
+
+// Order: root first, then subfolders alphabetically
+const projects = [];
+const root = map.get(ROOT);
+if (root?.items.length) projects.push(root);
+projects.push(...Array.from(map.values())
+  .filter(g => g.key !== ROOT)
+  .sort((a, b) => a.key.localeCompare(b.key)));
+
+const totalImages = projects.reduce((n, p) => n + p.items.length, 0);
 ---
 
 <BaseLayout
@@ -51,22 +105,32 @@ const galleryItems = Object.entries(imageFiles)
       has felt worth making. Updated as things accumulate.
     </p>
 
-    <ArtGallery items={galleryItems} />
-	<!--		
-    <div class="callout callout--note" style="margin-top: 48px;">
-      <span class="callout__icon">ℹ️</span>
-      <div>
-        <span class="callout__label">Adding images</span>
-        <p class="callout__text">
-          Place any <strong>.png</strong>, <strong>.jpg</strong>,
-          <strong>.gif</strong>, or <strong>.webp</strong> file into
-          <code>/public/art/</code> and run <code>npm run build</code>.
-          Files are sorted alphabetically — prefix with numbers to control order
-          (e.g. <code>01-first.png</code>, <code>02-second.jpg</code>).
-        </p>
+    {totalImages === 0 ? (
+      <div class="gallery-empty">
+        <p>Nothing here yet.</p>
+        <small>
+          Drop images into <code>/public/art/</code> and rebuild.<br />
+          Use subfolders for separate projects. Supported: PNG · JPG · GIF · WEBP
+        </small>
       </div>
-    </div>
-	-->
+    ) : (
+      <div class="project-list">
+        {projects.map((project, pi) => (
+          <div class="project-section">
+            {project.title && (
+              <div class="project-header">
+                <h2 class="project-title">{project.title}</h2>
+                {project.description && (
+                  <p class="project-description">{project.description}</p>
+                )}
+              </div>
+            )}
+            <ArtGallery items={project.items} galleryId={`gallery-${pi}`} />
+          </div>
+        ))}
+      </div>
+    )}
+
   </div>
 
 </BaseLayout>

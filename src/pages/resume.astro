@@ -32,7 +32,7 @@ import '../styles/print.css';
         <a href="tel:2534326819" class="contact-row__link">253.432.6819</a>
         <span class="contact-row__dot"></span>
         <span class="contact-row__link">Gig Harbor, WA</span>
-        <a href="#" class="chip chip--ghost" style="margin-left: auto;" onclick="window.print(); return false;">Print ↓</a>
+        <a href="#" class="chip chip--ghost" style="margin-left: auto;" id="print-btn">Print ↓</a>
       </div>
     </div>
 
@@ -131,12 +131,6 @@ import '../styles/print.css';
     </section>
 
     <!-- ── Skills ───────────────────────────────────────────── -->
-    <!--
-      SKILL TOOLTIPS: Each tag uses class="tag tag--green skill-tag" (or tag--brown).
-      Add data-tip="Your tooltip text here" to any tag to give it a hover tooltip.
-      Leave data-tip off if you don't want a tooltip on a particular tag.
-      The tooltip appears above the tag on hover, bottom-sheet on mobile tap.
-    -->
     <section class="resume-section">
       <div class="paper-card">
         <div class="paper-card__header">
@@ -149,116 +143,47 @@ import '../styles/print.css';
             <div>
               <span class="skills-group-label">Software</span>
               <div class="tag-cloud">
-                <span class="tag tag--green skill-tag"
-                  data-tip="Used daily for email, documents, spreadsheets, and calendar management across all roles.">
-                  Office 365
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Primary communication tool — managed scheduling, client correspondence, and team coordination.">
-                  Outlook
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Used for remote team meetings and coordination during the Titan Inspection role.">
-                  Zoom
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Restaurant management and ordering system used at Massimo. Handled order entry, table management, and end-of-shift reporting.">
-                  Dinerware
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Used to run virtual machines for IT coursework — tested operating systems and isolated environments without dedicated hardware.">
-                  VirtualBox
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Home inspection reporting platform. Processed inspector audio/video to produce detailed property condition reports remotely.">
-                  Spectora
-                </span>
+                <span class="tag tag--green skill-tag" data-tip="Used daily for email, documents, spreadsheets, and calendar management across all roles.">Office 365</span>
+                <span class="tag tag--green skill-tag" data-tip="Primary communication tool — managed scheduling, client correspondence, and team coordination.">Outlook</span>
+                <span class="tag tag--green skill-tag" data-tip="Used for remote team meetings and coordination during the Titan Inspection role.">Zoom</span>
+                <span class="tag tag--green skill-tag" data-tip="Restaurant management and ordering system used at Massimo. Handled order entry, table management, and end-of-shift reporting.">Dinerware</span>
+                <span class="tag tag--green skill-tag" data-tip="Used to run virtual machines for IT coursework — tested operating systems and isolated environments without dedicated hardware.">VirtualBox</span>
+                <span class="tag tag--green skill-tag" data-tip="Home inspection reporting platform. Processed inspector audio/video to produce detailed property condition reports remotely.">Spectora</span>
               </div>
             </div>
 
             <div>
               <span class="skills-group-label">Networking</span>
               <div class="tag-cloud">
-                <span class="tag tag--green skill-tag"
-                  data-tip="Local Area Network — understand topology, device communication, and basic troubleshooting for wired and wireless networks.">
-                  LAN
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Dynamic Host Configuration Protocol — familiar with IP address assignment, lease management, and scope configuration.">
-                  DHCP
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Virtual Private Network — understand tunneling concepts, secure remote access, and client configuration.">
-                  VPN
-                </span>
-                <span class="tag tag--green skill-tag"
-                  data-tip="Domain Name System — can configure, troubleshoot, and explain how DNS resolves names to IP addresses.">
-                  DNS
-                </span>
-                <span class="tag skill-tag"
-                  data-tip="Broad understanding of how networked systems communicate, including switches, routers, and basic network architecture.">
-                  Network Systems
-                </span>
+                <span class="tag tag--green skill-tag" data-tip="Local Area Network — understand topology, device communication, and basic troubleshooting for wired and wireless networks.">LAN</span>
+                <span class="tag tag--green skill-tag" data-tip="Dynamic Host Configuration Protocol — familiar with IP address assignment, lease management, and scope configuration.">DHCP</span>
+                <span class="tag tag--green skill-tag" data-tip="Virtual Private Network — understand tunneling concepts, secure remote access, and client configuration.">VPN</span>
+                <span class="tag tag--green skill-tag" data-tip="Domain Name System — can configure, troubleshoot, and explain how DNS resolves names to IP addresses.">DNS</span>
+                <span class="tag skill-tag" data-tip="Broad understanding of how networked systems communicate, including switches, routers, and basic network architecture.">Network Systems</span>
               </div>
             </div>
 
             <div>
               <span class="skills-group-label">Platforms &amp; browsers</span>
               <div class="tag-cloud">
-                <span class="tag skill-tag"
-                  data-tip="Primary OS in IT coursework and lab environments. Familiar with enterprise features, Group Policy, and system administration.">
-                  Windows 11 Enterprise
-                </span>
-                <span class="tag skill-tag"
-                  data-tip="Familiar with the Chrome OS environment and its web-first application model.">
-                  Chrome OS
-                </span>
-                <span class="tag skill-tag"
-                  data-tip="Daily driver. Proficient with DevTools, extensions, and performance troubleshooting.">
-                  Google Chrome
-                </span>
-                <span class="tag skill-tag"
-                  data-tip="Comfortable in Edge for compatibility testing and enterprise environments that rely on it.">
-                  Microsoft Edge
-                </span>
-                <span class="tag skill-tag"
-                  data-tip="Used for cross-browser compatibility checks and privacy-focused browsing.">
-                  Mozilla Firefox
-                </span>
+                <span class="tag skill-tag" data-tip="Primary OS in IT coursework and lab environments. Familiar with enterprise features, Group Policy, and system administration.">Windows 11 Enterprise</span>
+                <span class="tag skill-tag" data-tip="Familiar with the Chrome OS environment and its web-first application model.">Chrome OS</span>
+                <span class="tag skill-tag" data-tip="Daily driver. Proficient with DevTools, extensions, and performance troubleshooting.">Google Chrome</span>
+                <span class="tag skill-tag" data-tip="Comfortable in Edge for compatibility testing and enterprise environments that rely on it.">Microsoft Edge</span>
+                <span class="tag skill-tag" data-tip="Used for cross-browser compatibility checks and privacy-focused browsing.">Mozilla Firefox</span>
               </div>
             </div>
 
             <div>
               <span class="skills-group-label">Areas of expertise</span>
               <div class="tag-cloud">
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Diagnosed and resolved hardware, software, and network issues in both IT coursework and real restaurant environments.">
-                  Technical support
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Six-plus years of direct customer-facing experience in a high-volume restaurant. Consistent positive feedback.">
-                  Customer service
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Methodical approach to identifying root causes — whether a malfunctioning POS, a network issue, or a workflow bottleneck.">
-                  Problem diagnosis
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Proposed and implemented workflow improvements at both Massimo (seating process) and Titan (reporting efficiency).">
-                  Systems optimization
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Operated Dinerware POS at Massimo and led the team through a full system migration to a new platform.">
-                  POS systems
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Handled difficult customer situations calmly and professionally, consistently maintaining high satisfaction ratings.">
-                  Complaint handling
-                </span>
-                <span class="tag tag--brown skill-tag"
-                  data-tip="Helped promote specials and new menu items to guests, contributing to upsell goals and overall revenue.">
-                  Marketing
-                </span>
+                <span class="tag tag--brown skill-tag" data-tip="Diagnosed and resolved hardware, software, and network issues in both IT coursework and real restaurant environments.">Technical support</span>
+                <span class="tag tag--brown skill-tag" data-tip="Six-plus years of direct customer-facing experience in a high-volume restaurant. Consistent positive feedback.">Customer service</span>
+                <span class="tag tag--brown skill-tag" data-tip="Methodical approach to identifying root causes — whether a malfunctioning POS, a network issue, or a workflow bottleneck.">Problem diagnosis</span>
+                <span class="tag tag--brown skill-tag" data-tip="Proposed and implemented workflow improvements at both Massimo (seating process) and Titan (reporting efficiency).">Systems optimization</span>
+                <span class="tag tag--brown skill-tag" data-tip="Operated Dinerware POS at Massimo and led the team through a full system migration to a new platform.">POS systems</span>
+                <span class="tag tag--brown skill-tag" data-tip="Handled difficult customer situations calmly and professionally, consistently maintaining high satisfaction ratings.">Complaint handling</span>
+                <span class="tag tag--brown skill-tag" data-tip="Helped promote specials and new menu items to guests, contributing to upsell goals and overall revenue.">Marketing</span>
               </div>
             </div>
 
@@ -326,156 +251,206 @@ import '../styles/print.css';
   line-height: 1.5;
 }
 
-/* ── Skill tag tooltips ─────────────────────────────────────── */
-.skill-tag {
-  position: relative;
-  cursor: help;
-}
+/* ── Skill tag base — tooltip rendered by JS, not CSS pseudo ── */
+.skill-tag { cursor: help; }
 
-/* The tooltip bubble — hidden by default */
-.skill-tag::after {
-  content: attr(data-tip);
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  background: #faf7f2;
-  border: 1px solid var(--border-dark);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-warm);
-  padding: 10px 12px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--text-mid);
-  white-space: normal;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 140ms ease;
-  z-index: 300;
-  /* Triangle pointer */
-  --tri: var(--border-dark);
-}
-
-/* Triangle below bubble */
-.skill-tag::before {
-  content: '';
-  position: absolute;
-  bottom: calc(100% + 2px);
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: var(--border-dark);
-  opacity: 0;
-  transition: opacity 140ms ease;
-  pointer-events: none;
-  z-index: 301;
-}
-
-/* Only show tooltip if data-tip exists and is non-empty */
-.skill-tag[data-tip]:not([data-tip=""]):hover::after,
-.skill-tag[data-tip]:not([data-tip=""]):hover::before {
-  opacity: 1;
-}
-
-/* Flip tooltip downward if near top of viewport */
-.skill-tag.tip-below::after {
-  top: calc(100% + 8px);
-  bottom: auto;
-}
-.skill-tag.tip-below::before {
-  top: calc(100% + 2px);
-  bottom: auto;
-  border-top-color: transparent;
-  border-bottom-color: var(--border-dark);
-}
-
-/* Mobile: fixed bottom sheet instead of bubble */
+/* Mobile bottom sheet */
 @media (max-width: 639px) {
-  .skill-tag::after,
-  .skill-tag::before { display: none; }
-
-  .skill-tag.tip-open .skill-tip-sheet {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-/* Mobile bottom sheet element (injected by JS) */
-.skill-tip-sheet {
-  display: none;
-}
-
-@media (max-width: 639px) {
-  .skill-tip-sheet {
-    display: block;
-    position: fixed;
-    bottom: 24px;
-    left: 16px;
-    right: 16px;
-    background: #faf7f2;
-    border: 1px solid var(--border-dark);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-warm);
-    padding: 14px 16px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.55;
-    z-index: 500;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 160ms ease;
-  }
+  .skill-tag { cursor: pointer; }
 }
 </style>
 
 <script>
-// ── Skill tag: viewport-edge flip + mobile bottom sheet ────────
 (function () {
-  // Desktop: flip tooltip below if tag is near top of viewport
-  function checkFlip() {
-    document.querySelectorAll('.skill-tag[data-tip]').forEach(tag => {
-      const rect = tag.getBoundingClientRect();
-      tag.classList.toggle('tip-below', rect.top < 160);
-    });
+  // ── Floating tooltip (desktop) ───────────────────────────────
+  // Appended directly to body so no parent overflow:hidden can clip it.
+  const bubble = document.createElement('div');
+  bubble.style.cssText = [
+    'position:fixed',
+    'z-index:99999',
+    'max-width:240px',
+    'background:#faf7f2',
+    'border:1px solid #b0a28a',
+    'border-radius:2px',
+    'box-shadow:0 4px 16px rgba(58,46,30,0.13),3px 3px 0 #d6cdb8',
+    'padding:10px 13px',
+    'font-family:"Libre Baskerville",Georgia,serif',
+    'font-size:12px',
+    'line-height:1.55',
+    'color:#6b5a42',
+    'pointer-events:none',
+    'opacity:0',
+    'transition:opacity 120ms ease',
+    'white-space:normal',
+  ].join(';');
+  document.body.appendChild(bubble);
+
+  let activeTag = null;
+
+  function place(tag) {
+    const r  = tag.getBoundingClientRect();
+    const bw = bubble.offsetWidth  || 240;
+    const bh = bubble.offsetHeight || 80;
+    const margin = 10;
+    let top  = r.top - bh - 10;
+    let left = r.left + r.width / 2 - bw / 2;
+    if (top < margin) top = r.bottom + 10;          // flip below
+    if (left < margin) left = margin;
+    if (left + bw > window.innerWidth - margin) left = window.innerWidth - bw - margin;
+    bubble.style.top  = top  + 'px';
+    bubble.style.left = left + 'px';
   }
-  checkFlip();
-  window.addEventListener('scroll', checkFlip, { passive: true });
-  window.addEventListener('resize', checkFlip, { passive: true });
 
-  // Mobile: tap to show/hide a bottom sheet with the tip text
+  function show(tag) {
+    if (!tag.dataset.tip) return;
+    bubble.textContent = tag.dataset.tip;
+    bubble.style.opacity = '1';
+    activeTag = tag;
+    place(tag);
+  }
+
+  function hide() {
+    bubble.style.opacity = '0';
+    activeTag = null;
+  }
+
+  if (window.innerWidth >= 640) {
+    document.querySelectorAll('.skill-tag[data-tip]').forEach(tag => {
+      tag.addEventListener('mouseenter', () => show(tag));
+      tag.addEventListener('mouseleave', hide);
+    });
+    window.addEventListener('scroll', () => { if (activeTag) place(activeTag); }, { passive: true });
+  }
+
+  // ── Mobile bottom sheet ──────────────────────────────────────
   if (window.innerWidth < 640) {
-    // Create one shared bottom sheet element
     const sheet = document.createElement('div');
-    sheet.className = 'skill-tip-sheet';
+    sheet.style.cssText = [
+      'position:fixed',
+      'bottom:24px',
+      'left:16px',
+      'right:16px',
+      'background:#faf7f2',
+      'border:1px solid #b0a28a',
+      'border-radius:2px',
+      'box-shadow:0 4px 16px rgba(58,46,30,0.13)',
+      'padding:14px 16px',
+      'font-family:"Libre Baskerville",Georgia,serif',
+      'font-size:13px',
+      'color:#6b5a42',
+      'line-height:1.55',
+      'z-index:99999',
+      'opacity:0',
+      'pointer-events:none',
+      'transition:opacity 160ms ease',
+    ].join(';');
     document.body.appendChild(sheet);
-
     let openTag = null;
 
     document.querySelectorAll('.skill-tag[data-tip]').forEach(tag => {
       tag.addEventListener('click', e => {
         e.stopPropagation();
         if (openTag === tag) {
-          // Close
-          sheet.style.opacity = '0';
-          sheet.style.pointerEvents = 'none';
-          openTag = null;
+          sheet.style.opacity = '0'; sheet.style.pointerEvents = 'none'; openTag = null;
         } else {
           sheet.textContent = tag.dataset.tip;
-          sheet.style.opacity = '1';
-          sheet.style.pointerEvents = 'auto';
-          openTag = tag;
+          sheet.style.opacity = '1'; sheet.style.pointerEvents = 'auto'; openTag = tag;
         }
       });
     });
-
     document.addEventListener('click', () => {
-      sheet.style.opacity = '0';
-      sheet.style.pointerEvents = 'none';
-      openTag = null;
+      sheet.style.opacity = '0'; sheet.style.pointerEvents = 'none'; openTag = null;
     });
   }
+
+  // ── One-page print ───────────────────────────────────────────
+  document.getElementById('print-btn')?.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const name  = document.querySelector('.resume-header__name')?.textContent.trim()  || '';
+    const title = document.querySelector('.resume-header__title')?.textContent.trim() || '';
+    const email = document.querySelector('a[href^="mailto"]')?.textContent.trim()     || '';
+    const phone = document.querySelector('a[href^="tel"]')?.textContent.trim()        || '';
+    const city  = document.querySelector('.contact-row__link:not([href])')?.textContent.trim() || '';
+
+    const jobs = Array.from(document.querySelectorAll('.timeline-item:not(.timeline-item--edu)')).map(item => ({
+      year:    item.querySelector('.timeline-item__year')?.textContent.trim()     || '',
+      role:    item.querySelector('.timeline-item__role')?.textContent.trim()     || '',
+      company: item.querySelector('.timeline-item__company')?.textContent.trim()  || '',
+      desc:    item.querySelector('.timeline-item__desc')?.textContent.trim().replace(/\s+/g,' ') || '',
+      bullets: Array.from(item.querySelectorAll('.timeline-item__bullets li')).map(li => li.textContent.trim()),
+    }));
+
+    const skillGroups = Array.from(document.querySelectorAll('.skills-grid > div')).map(g => ({
+      label: g.querySelector('.skills-group-label')?.textContent.trim() || '',
+      tags:  Array.from(g.querySelectorAll('.tag')).map(t => t.textContent.trim()),
+    }));
+
+    const edu = Array.from(document.querySelectorAll('.timeline-item--edu')).map(item => ({
+      year:    item.querySelector('.timeline-item__year')?.textContent.trim()    || '',
+      role:    item.querySelector('.timeline-item__role')?.textContent.trim()    || '',
+      company: item.querySelector('.timeline-item__company')?.textContent.trim() || '',
+    }));
+
+    const jobsHtml = jobs.map(j => `
+      <div class="pj">
+        <div class="pj-top">
+          <div><span class="pj-role">${j.role}</span> <span class="pj-co">${j.company}</span></div>
+          <span class="pyr">${j.year}</span>
+        </div>
+        <p class="pj-desc">${j.desc}</p>
+        ${j.bullets.length ? '<ul>' + j.bullets.map(b=>`<li>${b}</li>`).join('') + '</ul>' : ''}
+      </div>`).join('');
+
+    const skillsHtml = skillGroups.map(g =>
+      `<div class="psg"><span class="psl">${g.label}:</span> ${g.tags.join(' · ')}</div>`
+    ).join('');
+
+    const eduHtml = edu.map(e =>
+      `<div class="pe"><span class="pe-role">${e.role}</span> — <span class="pe-co">${e.company}</span> <span class="pyr">${e.year}</span></div>`
+    ).join('');
+
+    const css = `
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:'Libre Baskerville',Georgia,serif;font-size:9.5pt;color:#1a1a1a;line-height:1.45;padding:0}
+      h1{font-size:19pt;font-weight:700;margin-bottom:1pt}
+      .pt{font-size:10.5pt;font-style:italic;color:#444;margin-bottom:3pt}
+      .pc{font-size:8.5pt;color:#555;margin-bottom:8pt}
+      .pc span{margin-right:12pt}
+      hr{border:none;border-top:1pt solid #bbb;margin:6pt 0}
+      .lbl{font-size:7pt;text-transform:uppercase;letter-spacing:.08em;color:#999;font-family:monospace;display:block;margin-bottom:4pt}
+      .pj{margin-bottom:8pt}
+      .pj-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1pt}
+      .pj-role{font-weight:700;font-size:10pt}
+      .pj-co{font-style:italic;color:#555;font-size:8.5pt;margin-left:5pt}
+      .pyr{font-size:8pt;color:#777;white-space:nowrap;flex-shrink:0}
+      .pj-desc{font-size:8.5pt;color:#333;margin:2pt 0 2pt}
+      ul{margin:0 0 0 13pt}
+      li{font-size:8pt;color:#444;margin-bottom:1pt}
+      .psg{font-size:8.5pt;margin-bottom:3pt}
+      .psl{font-weight:700;font-size:8pt;color:#555}
+      .pe{font-size:9pt;margin-bottom:3pt;display:flex;justify-content:space-between}
+      .pe-role{font-weight:700}
+      .pe-co{font-style:italic;color:#555}
+    `;
+
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+      <title>${name} — Résumé</title>
+      <style>${css}</style>
+    </head><body>
+      <h1>${name}</h1>
+      <p class="pt">${title}</p>
+      <div class="pc"><span>${email}</span><span>${phone}</span><span>${city}</span></div>
+      <hr><span class="lbl">Experience</span>${jobsHtml}
+      <hr><span class="lbl">Skills &amp; Proficiencies</span><div style="margin-bottom:6pt">${skillsHtml}</div>
+      <hr><span class="lbl">Education &amp; Credentials</span>${eduHtml}
+    </body></html>`;
+
+    const win = window.open('', '_blank', 'width=900,height=700');
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(() => { win.print(); }, 400);
+  });
 })();
 </script>
