@@ -46,6 +46,9 @@ const LINKEDIN_URL  = 'https://linkedin.com/in/ethanhammel';  // update if diffe
 
   <PaperAirplane />
 
+  <!-- Tree border — fixed to right edge, tiles vertically, hidden on mobile -->
+  <div class="tree-border" aria-hidden="true"></div>
+
   <Nav page={page} brandName={BRAND_NAME} contactEmail={CONTACT_EMAIL} />
 
   <main>
@@ -111,4 +114,26 @@ const LINKEDIN_URL  = 'https://linkedin.com/in/ethanhammel';  // update if diffe
   color: var(--moss-dark);
 }
 .kw--active .kw-panel { opacity: 1 !important; }
+
+/* ── Tree border ────────────────────────────────────────────── */
+/* Image is 70×500px. Fixed to right edge, tiles vertically.    */
+/* z-index 50 — above page content, below nav (100) and bird.   */
+.tree-border {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  width: 200px;
+  height: 794px;
+  background-image: url('/tree.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 200px 794px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Hide on mobile — not enough screen width */
+@media (max-width: 900px) {
+  .tree-border { display: none; }
+}
 </style>
