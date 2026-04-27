@@ -10,6 +10,9 @@
 .game-switcher {
   position: relative;
   margin-top: 32px;
+  /* Enough horizontal padding so the absolute-positioned nav arrows
+     (-50px left/right) are NOT clipped by the parent's edges.        */
+  padding: 0 56px;
 }
 
 /* Left / right nav arrows */
@@ -17,7 +20,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  /* Above the bird cursor layer so clicks register on the buttons */
+  z-index: 200;
   width: 40px;
   height: 40px;
   background: var(--paper-dark);
@@ -26,7 +30,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  /* Restore pointer cursor — bird script sets cursor:none globally,
+     but these buttons need a visible pointer so the user knows they
+     can click them.  The bird still follows the mouse; this just
+     re-enables the OS cursor as a fallback on the buttons.           */
+  cursor: pointer !important;
   font-size: 20px;
   color: var(--bark-dark);
   transition: background var(--transition), color var(--transition);
@@ -37,17 +45,17 @@
   background: var(--bark-dark);
   color: var(--paper);
 }
-.game-nav--prev { left: -50px; }
-.game-nav--next { right: -50px; }
+.game-nav--prev { left: 6px; }
+.game-nav--next { right: 6px; }
 .game-nav:disabled {
   opacity: 0.3;
   pointer-events: none;
 }
 
 @media (max-width: 960px) {
+  .game-switcher  { padding: 0; margin-bottom: 64px; }
   .game-nav--prev { left: 0; top: auto; bottom: -52px; transform: none; }
   .game-nav--next { right: 0; top: auto; bottom: -52px; transform: none; }
-  .game-switcher  { margin-bottom: 64px; }
 }
 
 /* Game slot — only active one visible */
@@ -71,7 +79,7 @@
   border-radius: 50%;
   background: var(--border-dark);
   transition: background var(--transition), transform var(--transition);
-  cursor: pointer;
+  cursor: pointer !important;
 }
 .game-dot.is-active {
   background: var(--moss);
@@ -84,7 +92,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 .game-title-strip h2 {
   font-family: var(--font-display);
@@ -97,6 +105,17 @@
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--text-light);
+}
+
+/* Game description — shown above the viewport */
+.game-description {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--text-mid);
+  line-height: 1.65;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 14px;
 }
 
 /* ── Shared game wrapper ─────────────────────────────────────── */
@@ -130,7 +149,13 @@
 #race-canvas {
   display: block;
   width: 100%;
+  /* Allow keyboard events to reach the canvas via tabindex on the
+     game-wrapper; touch-action:none prevents scroll-hijack on mobile. */
   touch-action: none;
+  /* Ensure the canvas itself captures pointer events normally */
+  pointer-events: auto;
+  /* Make canvas focusable so arrow-key input works without page scroll */
+  outline: none;
 }
 
 /* ── Placeholder for future games ────────────────────────────── */
